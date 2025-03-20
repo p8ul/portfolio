@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
                     textTransform: "none",
                     padding: "10px 20px",
                   }}
-                  onClick={() => router.push("/portfolio/new")}
+                  onClick={() => window.location.href = "/portfolio/new"}
                 >
                   Add More →
                 </Button>
