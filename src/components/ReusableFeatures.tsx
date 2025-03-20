@@ -12,14 +12,12 @@ import {
   Chip,
   Button
 } from "@mui/material";
-import usePortfolioData from "@/app/hooks/usePortfolioData";
-import { useRouter } from "next/navigation";
+import usePortfolioData from "@/hooks/usePortfolioData";
 
 export default function ReusableFeatures() {
   const [portfolioData, loading, error] = usePortfolioData();
   const [openModal, setOpenModal] = useState(false);
   const [selectedFeature, setSelectedFeature] = useState<any | null>(null);
-  const router = useRouter();
   // When a card is clicked, store the feature in state and open the modal
   const handleCardClick = (feature: any) => {
     setSelectedFeature(feature);
@@ -59,7 +57,7 @@ export default function ReusableFeatures() {
           // Show error message if there's an error fetching data
           <Grid item xs={12}>
             <Typography variant="h6" color="error">
-              Error loading portfolio data.
+              Sign in to load portfolio data. 
             </Typography>
           </Grid>
         ) : portfolioData && portfolioData.length > 0 ? (

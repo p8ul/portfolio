@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "@/lib/firebaseConfig";
+import { AppDispatch, RootState } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
 
 interface PortfolioData {
   id: string; // Document ID
@@ -16,6 +18,10 @@ const usePortfolioData = (): [PortfolioData[] | null, boolean, any] => {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  // const portfolios = useSelector(
+  //   (state: RootState) => state.portfolio.portfolios
+  // );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +40,8 @@ const usePortfolioData = (): [PortfolioData[] | null, boolean, any] => {
           })) as PortfolioData[];
 
           setPortfolioData(data);
+
+          // dispatch(data);
         } else {
           console.log("No documents found in the portfolio collection.");
           setPortfolioData([]);
