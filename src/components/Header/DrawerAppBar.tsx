@@ -15,6 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/navigation";
 
 interface Props {
   /**
@@ -30,6 +31,7 @@ const navItems = ["About", "Contact"];
 export default function DrawerAppBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const router = useRouter();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -37,7 +39,7 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2 }} onClick={() => router.push("/")}>
         PORTFOLIO
       </Typography>
       <Divider />
@@ -49,11 +51,6 @@ export default function DrawerAppBar(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem>
-          <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary={"Download App"} />
-          </ListItemButton>
-        </ListItem>
       </List>
     </Box>
   );
@@ -84,11 +81,11 @@ export default function DrawerAppBar(props: Props) {
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block", cursor: 'pointer' } }}
+            onClick={() => router.push("/")}
           >
             PORTFOLIO
           </Typography>
-         
         </Toolbar>
       </AppBar>
       <nav>

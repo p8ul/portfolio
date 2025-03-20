@@ -1,7 +1,14 @@
+"use client";
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebaseConfig";
+import { signOut } from "firebase/auth";
 const HeroSection: React.FC = () => {
+  const router = useRouter();
+  
+
   return (
     <Box
       sx={{
@@ -45,25 +52,43 @@ const HeroSection: React.FC = () => {
           >
             <Box sx={{ maxWidth: 500, textAlign: "left", p: 4 }}>
               <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2 }}>
-               Paul K. Your next hire
+                Paul K. Your next hire
               </Typography>
               <Typography variant="body1" sx={{ mb: 4 }}>
                 There’s a FirstTime for everything, so go ahead, try something
                 new!
               </Typography>
               <Box sx={{ display: "flex", gap: 2 }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "#fff",
-                    color: "#1e90ff",
-                    fontWeight: "bold",
-                    textTransform: "none",
-                    padding: "10px 20px",
-                  }}
-                >
-                  Download The App
-                </Button>
+                {auth.currentUser ? (
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#fff",
+                      color: "#1e90ff",
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      padding: "10px 20px",
+                    }}
+                    onClick={() => signOut(auth)}
+                  >
+                    Signout
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#fff",
+                      color: "#1e90ff",
+                      fontWeight: "bold",
+                      textTransform: "none",
+                      padding: "10px 20px",
+                    }}
+                    onClick={() => router.push("login")}
+                  >
+                    Login
+                  </Button>
+                )}
+
                 <Button
                   variant="text"
                   sx={{
@@ -72,8 +97,9 @@ const HeroSection: React.FC = () => {
                     textTransform: "none",
                     padding: "10px 20px",
                   }}
+                  onClick={() => router.push("/portfolio/new")}
                 >
-                  Learn More →
+                  Add More →
                 </Button>
               </Box>
             </Box>
